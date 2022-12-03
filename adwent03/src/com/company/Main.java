@@ -7,44 +7,34 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-	File file = new File("src/com/company/input.txt");
-    Scanner scanner = new Scanner(file);
-    int sum = 0;
-    while(scanner.hasNextLine()){
-        String line = scanner.nextLine();
-        int mid = line.length() / 2;
-        String[] parts = {line.substring(0, mid),line.substring(mid)};
-        System.out.println(parts[0]);
-        System.out.println(parts[1]);
-        char czarus = '♥';
-        for (int i = 0; i < mid; i++) {
-            for (int j = 0; j < mid; j++) {
-                if(parts[0].charAt(i) == parts[1].charAt(j)){
-                    czarus = parts[0].charAt(i);
+        File file = new File("src/com/company/input.txt");
+        Scanner scanner = new Scanner(file);
+        int sum = 0;
+        while (scanner.hasNextLine()) {
+            String[] arr = {scanner.nextLine(), scanner.nextLine(), scanner.nextLine()};
+            char czarus = '♥';
+            for (int i = 0; i < arr[0].length(); i++) {
+                for (int j = 0; j < arr[1].length(); j++) {
+                    for (int k = 0; k < arr[2].length(); k++) {
+                        if(arr[0].charAt(i) == arr[1].charAt(j) && arr[1].charAt(j)== arr[2].charAt(k)){
+                            czarus = arr[0].charAt(i);
+                        }
+                    }
                 }
-            }
+            }//end of that loop straight from hell
+            int priority = getPriority(czarus);
+            sum += priority;
         }
-        System.out.println("Czaruś: " + czarus);
-        System.out.println("Priorytet Czarusia: " + getPriority(czarus));
-        sum += getPriority(czarus);
-        ;
-    }
         System.out.println("Suma: " + sum);
     }
-
-
-
-
-    public static int getPriority(char czarus){
+    public static int getPriority(char czarus) {
         int err = -1;
         char[] arr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         for (int i = 0; i < arr.length; i++) {
-            if(arr[i] == czarus){
+            if (arr[i] == czarus) {
                 return i + 1;
             }
         }
         return err;
     }
-
-
 }
